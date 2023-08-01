@@ -5,11 +5,13 @@ def input_poke():
     name  = input()
     print("vvod color")
     color  = input()
-    dict[name] = color
+    dict.append({'name': name , 'color': color})
 
-dict = {}
+dict = []
 print('vvod kol poke')
 dlin=int(input())
 for chislo in range(0, dlin):
-  input_poke()     
+  input_poke()    
 print(dict)
+for ele in dict:
+  print(ele.get('name'))
