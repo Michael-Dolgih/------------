@@ -1,34 +1,61 @@
 massive = open('games.txt', encoding= 'utf-8').read().splitlines()
 def index():
   global massvie
-  for e in massive:
-    print(e)
+  return massive
+
+def pretty_print(massive2):
+  if type(massive2) == list:
+    for i in massive2:
+      print(i) 
+  else:
+    print(massive2)
 
 def find(id):
   global massive
   for i in range(0, len(massive)):
     if i == id:
-      print(massive[i-1])
+      return(massive[i-1])
 
 def where(pattern):
   global massive
+  result = []
   for e in massive:
     if pattern in e.lower():
-      print(e)
+      result.append(e)
+  return(result)
+
+def save():
+  global massive 
+  file = open('games.txt', 'w', encoding= 'utf-8')
+  for e in massive:
+    file.write(e+'\n')
+  file.close
+
+def update(id, text):
+  global massive
+  massive[id - 1] = text
+  save()
 
 
-  
-  
-inputs = input()
-if inputs == 'index':
-  index()
-elif inputs == 'find':
-  print('vvedi nomer stroki')
-  id = int(input())
-  find(id)
-elif inputs == 'where':
-  print('vvedi slovo')
-  pattern = input()
-  where(pattern)
-else:
-  print('nothing')
+inputs = ''
+while inputs != 'exit':
+    inputs = input()
+    if inputs == 'index':
+      pretty_print(index())
+    elif inputs == 'find':
+        pretty_print('vvedi nomer stroki')
+        id = int(input())
+        pretty_print(find(id))
+    elif inputs == 'where':
+        pretty_print('vvedi slovo')
+        pattern = input()
+        pretty_print(where(pattern))
+    elif inputs == 'update':
+        pretty_print('vvedi nomer stroki')
+        id = int(input())
+        pretty_print('vvedi text')
+        text = input()
+        pretty_print(update(id, text))
+
+    else:
+      pretty_print('nothing')
