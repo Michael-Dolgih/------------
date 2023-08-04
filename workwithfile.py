@@ -4,7 +4,10 @@ def index():
   return massive
 
 def pretty_print(massive2):
-  if type(massive2) == list:
+  if list:
+    for l in range(0, len(massive)):
+      print(f'{l+1}) {massive[l]}')
+  elif type(massive2) == list:
     for i in massive2:
       print(i) 
   else:
@@ -27,14 +30,39 @@ def where(pattern):
 def save():
   global massive 
   file = open('games.txt', 'w', encoding= 'utf-8')
-  for e in massive:
-    file.write(e+'\n')
+  for i in range(len(massive)):
+    massive[i]
+    if i == len(massive)-1:
+      file.write(massive[i])
+    else:
+      file.write(massive[i]+'\n')
   file.close
 
 def update(id, text):
   global massive
   massive[id - 1] = text
   save()
+
+def delete(id):
+  global massive
+  massive.pop(id - 1)
+  save()
+
+def create(name):
+  global massive
+  massive.append(name)
+  save()
+  
+# def last_elem():
+#    k = ['a', 'b', 'c', 'c', 'b']
+#    for index in range(0, len(k)):
+#      print(k[index])
+#      if index == len(k)-1:
+#         print('eto last')
+#      else:
+#        print('eto ne last')
+#    print(len(k))
+#    print(index)
 
 
 inputs = ''
@@ -56,6 +84,14 @@ while inputs != 'exit':
         pretty_print('vvedi text')
         text = input()
         pretty_print(update(id, text))
-
+    elif inputs == 'delete':
+      pretty_print('vvedi nomer stroki')
+      id = int(input())
+      pretty_print(delete(id))
+    elif inputs == 'create':
+      pretty_print('vvedi text')
+      name = input()
+      pretty_print(create(name))
     else:
+      # last_elem()
       pretty_print('nothing')
