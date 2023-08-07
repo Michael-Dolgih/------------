@@ -4,12 +4,9 @@ def index():
   return massive
 
 def pretty_print(massive2):
-  if list:
-    for l in range(0, len(massive)):
-      print(f'{l+1}) {massive[l]}')
-  elif type(massive2) == list:
-    for i in massive2:
-      print(i) 
+  if type(massive2) == list:
+    for l in range(0, len(massive2)):
+      print(f'{l+1}) {massive2[l]}') 
   else:
     print(massive2)
 
