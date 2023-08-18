@@ -45,7 +45,7 @@ sg.theme('DarkGrey10')
 layout = [[sg.Text('Your balance:')],
           [sg.Text(str(balance), size=(15, 1), font=('Helvetica', 18),
             text_color='LightBlue', key='out')],
-          [sg.Text]
+          [sg.Text('', key= 'error')],
           [sg.Input('', size=(26, 1), key='input')],
           [sg.Button('Withdraw'), sg.Button('Quit')],
           [sg.Button('1'), sg.Button('2'), sg.Button('3')],
@@ -65,6 +65,7 @@ keys_entered = ''
 while True:
     event, values = window.read()  # read the form
     window['out'].update(balance)
+    window['error'].update('')
     if event == sg.WIN_CLOSED:  # if the X button clicked, just exit
         break
     if event == 'Quit':
@@ -82,7 +83,9 @@ while True:
        window['input'].update('')
        window['out'].update(balance)
     elif event == 'Withdraw':
-       W_block(int(values['input']))
+       w = W_block(int(values['input']))
+       if w == '':
+          window['error'].update('нe достаточно финансов')
        window['out'].update(keys_entered)
        window['input'].update('')
        window['out'].update(balance)
