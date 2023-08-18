@@ -21,7 +21,10 @@ def D_block(vvod):
   
 def W_block(vvod):
   global balance
-  balance = balance - vvod
+  if vvod <= balance:
+    balance = balance - vvod
+  else:
+    return ''
   save()
 
 try:
@@ -42,16 +45,16 @@ sg.theme('DarkGrey10')
 layout = [[sg.Text('Your balance:')],
           [sg.Text(str(balance), size=(15, 1), font=('Helvetica', 18),
             text_color='LightBlue', key='out')],
-          [sg.Text('Enter Your Passcode')],
+          [sg.Text]
           [sg.Input('', size=(26, 1), key='input')],
-          [sg.Button('Deposit'), sg.Button('Withdraw'), sg.Button('Quit')],
+          [sg.Button('Withdraw'), sg.Button('Quit')],
           [sg.Button('1'), sg.Button('2'), sg.Button('3')],
           [sg.Button('4'), sg.Button('5'), sg.Button('6')],
           [sg.Button('7'), sg.Button('8'), sg.Button('9')],
-          [sg.Button('Submit'), sg.Button('0'), sg.Button('Clear')],
+          [sg.Button('Deposit'), sg.Button('0'), sg.Button('Clear')],
           ]
 
-window = sg.Window('Keypad', layout,
+window = sg.Window('Банкомат', layout,
                    default_button_element_size=(6, 2),
                    auto_size_buttons=False,
                    grab_anywhere=False)
@@ -73,13 +76,16 @@ while True:
         keys_entered = values['input']  # get what's been entered so far
         keys_entered += event  # add the new digit
         window['input'].update(keys_entered)
-    elif event == 'Submit':
-        keys_entered = values['input']
-        window['out'].update(keys_entered)  # output the final string
-        window['input'].update('')
     elif event == 'Deposit':
        D_block(int(values['input']))
        window['out'].update(keys_entered)
+       window['input'].update('')
+       window['out'].update(balance)
+    elif event == 'Withdraw':
+       W_block(int(values['input']))
+       window['out'].update(keys_entered)
+       window['input'].update('')
+       window['out'].update(balance)
 
     # change the form to reflect current key string
 window.close()
